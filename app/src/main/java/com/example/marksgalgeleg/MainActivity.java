@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
+import com.example.marksgalgeleg.Galgelogik;
 
 public class MainActivity extends AppCompatActivity {
     Button Startbutton;
@@ -34,6 +35,9 @@ public class MainActivity extends AppCompatActivity {
 
     public void startGame(){
         // Starts the game activity. Let the games commence
+
+
+
         Intent myIntent = new Intent(this,
                 GameActivity.class);
         startActivity(myIntent);
