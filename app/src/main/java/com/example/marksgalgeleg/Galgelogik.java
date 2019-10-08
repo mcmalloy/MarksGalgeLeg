@@ -19,7 +19,6 @@ public class Galgelogik {
   private boolean sidsteBogstavVarKorrekt;
   private boolean spilletErVundet;
   private boolean spilletErTabt;
-  static boolean billedeSkift =true; // Bruges i appen til at vide om galgen skal opdateres
   public Galgelogik() {
     muligeOrd.add("bil");
     muligeOrd.add("computer");
@@ -103,11 +102,9 @@ public class Galgelogik {
     if (ordet.contains(bogstav)) {
       sidsteBogstavVarKorrekt = true;
       System.out.println("Bogstavet var korrekt: " + bogstav);
-      billedeSkift =false;
-    } else {
+      } else {
       // Vi gættede på et bogstav der ikke var i ordet.
       sidsteBogstavVarKorrekt = false;
-      billedeSkift =true;
       System.out.println("Bogstavet var IKKE korrekt: " + bogstav);
       antalForkerteBogstaver = antalForkerteBogstaver + 1;
       if (antalForkerteBogstaver > 6) {
@@ -115,10 +112,6 @@ public class Galgelogik {
       }
     }
     opdaterSynligtOrd();
-  }
-
-  public boolean skiftBillede(){
-    return billedeSkift;
   }
 
   public void logStatus() {

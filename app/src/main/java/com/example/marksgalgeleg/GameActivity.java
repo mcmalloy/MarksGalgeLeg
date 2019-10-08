@@ -35,16 +35,17 @@ public class GameActivity extends AppCompatActivity {
         final int[] currentImage = {0};
 
         final Galgelogik spil = new Galgelogik();
-        System.out.println("Ordet i denne runde er: "+spil.getOrdet());
         spil.nulstil();
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_second);
-
-
+        initializeFields();
         final EditText bogstavGættet = (EditText) findViewById(R.id.gætInputField);
+        final TextView debugWord = (TextView) findViewById(R.id.ActualWord);
         final TextView brugteBogstaver = (TextView) findViewById(R.id.gættedeBogstaver);
+        final TextView synligtOrd = (TextView) findViewById(R.id.synligtord);
 
+        debugWord.append("DEBUG, Ordet i denne runde er: "+ spil.getOrdet());
 
         gætKnap = (Button) findViewById(R.id.GuessButton);
         // Capture button clicks
@@ -52,20 +53,25 @@ public class GameActivity extends AppCompatActivity {
 
             public void onClick(View arg0) {
 
-                String gæt = String.valueOf(bogstavGættet.getText());
-                System.out.println("GÆTTET ER: "+gæt);
-                spil.gætBogstav(gæt);
+                String bogstav = String.valueOf(bogstavGættet.getText());
+                spil.gætBogstav(bogstav);
 
-                brugteBogstaver.append(" "+gæt);
-                bogstavGættet.setText("");
+                brugteBogstaver.append(" "+bogstav);
+                bogstavGættet.setText(""); // Resetter tekstfeltet så snart brugeren har lavet et gæt
 
-                if (currentImage[0]<=5 && spil.erSpilletSlut()!=true && spil.skiftBillede()==true) {
+
+                System.out.println("Spil status: "+spil.erSpilletSlut());
+
+                if (currentImage[0]<=5 && spil.erSpilletSlut()!=true && spil.erSidsteBogstavKorrekt()==false) {
                     ImageView image = (ImageView) findViewById(R.id.gameImage);
                     image.setImageResource(images[++currentImage[0]]);
-                    System.out.println("SKIFTER BILLEDE");
                 }
             }
         });
+
+    }
+
+    public void initializeFields(){
 
     }
 
