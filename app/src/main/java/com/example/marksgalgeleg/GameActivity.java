@@ -1,22 +1,20 @@
 package com.example.marksgalgeleg;
+import android.app.Dialog;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 public class GameActivity extends AppCompatActivity {
 
-    /**
-     * TODO:
-     * Create the actual game screen
-     * Show the first picture of the empty noose
-     * Show the form of hidden word
-     *
-     */
+  //TODO: Show the word in its hidden form, displaying each correctly guessed word
+
+
     Button gætKnap;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,9 +60,17 @@ public class GameActivity extends AppCompatActivity {
 
                 System.out.println("Spil status: "+spil.erSpilletSlut());
 
-                if (currentImage[0]<=5 && spil.erSpilletSlut()!=true && spil.erSidsteBogstavKorrekt()==false) {
+                if (spil.erSpilletSlut()!=true && spil.erSidsteBogstavKorrekt()==false) {
                     ImageView image = (ImageView) findViewById(R.id.gameImage);
                     image.setImageResource(images[++currentImage[0]]);
+                }
+                else{
+                    if(spil.erSpilletVundet()){
+                        Toast.makeText(getApplicationContext(),"Du har vundet spillet!",Toast.LENGTH_LONG);
+                    }
+                    else if(spil.erSpilletTabt()){
+                        Toast.makeText(getApplicationContext(),"Du har tabt spillet!",Toast.LENGTH_LONG);
+                    }
                 }
             }
         });
