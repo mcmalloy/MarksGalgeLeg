@@ -1,5 +1,4 @@
 package com.example.marksgalgeleg;
-import android.app.Dialog;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -37,13 +36,12 @@ public class GameActivity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_second);
-        initializeFields();
         final EditText bogstavGættet = (EditText) findViewById(R.id.gætInputField);
         final TextView debugWord = (TextView) findViewById(R.id.ActualWord);
-        final TextView brugteBogstaver = (TextView) findViewById(R.id.gættedeBogstaver);
         final TextView synligtOrd = (TextView) findViewById(R.id.synligtord);
 
         debugWord.append("DEBUG, Ordet i denne runde er: "+ spil.getOrdet());
+        synligtOrd.setText(spil.getSynligtOrd());
 
         gætKnap = (Button) findViewById(R.id.GuessButton);
         // Capture button clicks
@@ -53,18 +51,21 @@ public class GameActivity extends AppCompatActivity {
 
                 String bogstav = String.valueOf(bogstavGættet.getText());
                 spil.gætBogstav(bogstav);
+                spil.logStatus();
 
-                brugteBogstaver.append(" "+bogstav);
                 bogstavGættet.setText(""); // Resetter tekstfeltet så snart brugeren har lavet et gæt
-
-
+                String ord = spil.getSynligtOrd();
+                System.out.println(ord);
+                synligtOrd.setText("" + ord);
                 System.out.println("Spil status: "+spil.erSpilletSlut());
 
                 if (spil.erSpilletSlut()!=true && spil.erSidsteBogstavKorrekt()==false) {
                     ImageView image = (ImageView) findViewById(R.id.gameImage);
                     image.setImageResource(images[++currentImage[0]]);
+                    addWrongLetter(bogstav);
                 }
                 else{
+                    addCorrectLetter(bogstav);
                     if(spil.erSpilletVundet()){
                         Toast.makeText(getApplicationContext(),"Du har vundet spillet!",Toast.LENGTH_LONG);
                     }
@@ -77,8 +78,13 @@ public class GameActivity extends AppCompatActivity {
 
     }
 
-    public void initializeFields(){
-
+    public void addWrongLetter(String letter){
+        final TextView brugteBogstaverForkert = (TextView) findViewById(R.id.ForkerteBogstaver);
+        brugteBogstaverForkert.append(" "+letter);
     }
 
+    public void addCorrectLetter(String letter){
+        final TextView brugteBogstaverKorrekt = (TextView) findViewById(R.id.KorrekteBogstaver);
+        brugteBogstaverKorrekt.append(" "+letter);
+    }
 }

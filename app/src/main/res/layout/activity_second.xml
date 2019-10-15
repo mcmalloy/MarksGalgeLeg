@@ -6,6 +6,18 @@
     android:layout_height="match_parent"
     tools:context=".GameActivity">
 
+    <TextView
+        android:id="@+id/ForkerteBogstaver"
+        android:layout_width="161dp"
+        android:layout_height="36dp"
+        android:layout_marginStart="21dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginEnd="24dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/KorrekteBogstaver"
+        app:layout_constraintTop_toBottomOf="@+id/GuessButton" />
+
     <ImageView
         android:id="@+id/gameImage"
         android:layout_width="170dp"
@@ -45,29 +57,12 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <EditText
-        android:id="@+id/synligtord"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="98dp"
-        android:layout_marginTop="44dp"
-        android:layout_marginEnd="100dp"
-        android:layout_marginBottom="21dp"
-        android:ems="10"
-        android:inputType="textPassword"
-        app:layout_constraintBottom_toTopOf="@+id/gameImage"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <TextView
-        android:id="@+id/gættedeBogstaver"
+        android:id="@+id/KorrekteBogstaver"
         android:layout_width="161dp"
         android:layout_height="36dp"
-        android:layout_marginStart="125dp"
-        android:layout_marginTop="42dp"
-        android:layout_marginEnd="125dp"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="40dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/GuessButton" />
 
@@ -80,6 +75,18 @@
         android:layout_marginEnd="197dp"
         android:text=""
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/synligtord"
+        android:layout_width="137dp"
+        android:layout_height="20dp"
+        android:layout_marginStart="175dp"
+        android:layout_marginTop="64dp"
+        android:layout_marginEnd="177dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.488"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 

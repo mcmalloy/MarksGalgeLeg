@@ -7,28 +7,36 @@
     tools:context=".MainActivity">
 
     <Button
+        android:id="@+id/HelpButton"
+        android:layout_width="204dp"
+        android:layout_height="48dp"
+        android:layout_marginEnd="104dp"
+        android:layout_marginBottom="112dp"
+        android:text="Help"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <Button
         android:id="@+id/StartGameButton"
         android:layout_width="204dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="1dp"
-        android:layout_marginEnd="1dp"
-        android:layout_marginBottom="217dp"
+        android:layout_marginStart="100dp"
+        android:layout_marginEnd="107dp"
+        android:layout_marginBottom="26dp"
         android:text="Start Game"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/ContinueGameButton"
+        app:layout_constraintBottom_toTopOf="@+id/ContinueGameButton"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/ContinueGameButton"
         android:layout_width="204dp"
         android:layout_height="48dp"
-        android:layout_marginStart="1dp"
-        android:layout_marginEnd="1dp"
-        android:layout_marginBottom="217dp"
+        android:layout_marginEnd="104dp"
+        android:layout_marginBottom="192dp"
         android:text="Continue Game"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/StartGameButton" />
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <androidx.constraintlayout.widget.Barrier
         android:id="@+id/barrier"
@@ -36,5 +44,19 @@
         android:layout_height="wrap_content"
         app:barrierDirection="top"
         tools:layout_editor_absoluteY="731dp" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="184dp"
+        android:layout_height="52dp"
+        android:layout_marginStart="117dp"
+        android:layout_marginTop="84dp"
+        android:layout_marginEnd="117dp"
+        android:text="HANGMAN"
+        android:textSize="36sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.571"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
