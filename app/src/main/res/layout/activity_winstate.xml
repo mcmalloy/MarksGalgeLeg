@@ -21,25 +21,27 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/RestartGame"
+        android:id="@+id/playAgain"
         android:layout_width="127dp"
         android:layout_height="68dp"
-        android:layout_marginTop="275dp"
+        android:layout_marginStart="56dp"
+        android:layout_marginEnd="46dp"
+        android:layout_marginBottom="252dp"
         android:text="Spil Igen"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.204"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/winText" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/goToMainMenu"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <Button
-        android:id="@+id/restartGame"
+        android:id="@+id/goToMainMenu"
         android:layout_width="127dp"
         android:layout_height="68dp"
         android:layout_marginStart="44dp"
-        android:layout_marginTop="275dp"
         android:layout_marginEnd="56dp"
+        android:layout_marginBottom="252dp"
         android:text="Main Menu"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/RestartGame"
-        app:layout_constraintTop_toBottomOf="@+id/winText" />
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/playAgain" />
 </androidx.constraintlayout.widget.ConstraintLayout>

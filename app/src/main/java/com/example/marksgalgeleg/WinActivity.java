@@ -1,13 +1,8 @@
 package com.example.marksgalgeleg;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -27,18 +22,21 @@ public class WinActivity extends AppCompatActivity {
     public void listenToButtons(){
         // Capture button clicks
         //TODO: Currently  this activity does not allow buttons. Returns a nullpointerexception??
-//        RestartGameButton.setOnClickListener(new View.OnClickListener() {
-//            public void onClick(View arg0) {
-//                System.out.println("play again");
-//                playAgain();
-//            }
-//        });
-//        ReturnMainMenuButton.setOnClickListener(new View.OnClickListener() {
-//            public void onClick(View arg0) {
-//                System.out.println("main menu");
-//                GotoMenu();
-//            }
-//        });
+        RestartGameButton = findViewById(R.id.playAgain);
+        ReturnMainMenuButton = findViewById(R.id.goToMainMenu);
+
+        RestartGameButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View arg0) {
+                System.out.println("play again");
+                playAgain();
+            }
+        });
+        ReturnMainMenuButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View arg0) {
+                System.out.println("main menu");
+                GotoMenu();
+            }
+        });
     }
 
     public void playAgain(){

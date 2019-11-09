@@ -35,7 +35,7 @@ public class GameActivity extends AppCompatActivity {
         final TextView debugWord = (TextView) findViewById(R.id.ActualWord);
         final TextView synligtOrd = (TextView) findViewById(R.id.synligtord);
 
-            debugWord.append("DEBUG, Ordet i denne runde er: "+ spil.getOrdet());
+            // debugWord.append("DEBUG, Ordet i denne runde er: "+ spil.getOrdet());
             synligtOrd.setText(spil.getSynligtOrd());
 
             gætKnap = (Button) findViewById(R.id.GuessButton);

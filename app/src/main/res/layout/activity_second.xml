@@ -12,12 +12,12 @@
         android:layout_width="161dp"
         android:layout_height="36dp"
         android:layout_marginStart="21dp"
-        android:layout_marginTop="40dp"
         android:layout_marginEnd="24dp"
+        android:layout_marginBottom="84dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toEndOf="@+id/KorrekteBogstaver"
-        app:layout_constraintTop_toBottomOf="@+id/GuessButton" />
+        app:layout_constraintStart_toEndOf="@+id/KorrekteBogstaver" />
 
     <ImageView
         android:id="@+id/gameImage"
@@ -36,26 +36,25 @@
         android:id="@+id/GuessButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="158dp"
-        android:layout_marginEnd="165dp"
-        android:layout_marginBottom="160dp"
+        android:layout_marginStart="38dp"
+        android:layout_marginEnd="40dp"
+        android:layout_marginBottom="232dp"
         android:text="Gæt"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toEndOf="@+id/gætInputField" />
 
     <EditText
         android:id="@+id/gætInputField"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="99dp"
-        android:layout_marginEnd="99dp"
-        android:layout_marginBottom="74dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="38dp"
+        android:layout_marginBottom="232dp"
         android:ems="10"
         android:inputType="textPersonName"
-        app:layout_constraintBottom_toTopOf="@+id/GuessButton"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/GuessButton"
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
@@ -63,9 +62,9 @@
         android:layout_width="161dp"
         android:layout_height="36dp"
         android:layout_marginStart="24dp"
-        android:layout_marginTop="40dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/GuessButton" />
+        android:layout_marginBottom="84dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/ActualWord"
