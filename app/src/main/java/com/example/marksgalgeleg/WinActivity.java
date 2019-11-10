@@ -12,25 +12,24 @@ public class WinActivity extends AppCompatActivity {
     Button ReturnMainMenuButton;
     Button HighScoreButton;
     TextView addNumberOfGuesses;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_winstate);
 
-        int numberOfGuesses = getIntent().getExtras().getInt("arg");
+        // Retrieving passed argument, in this case the number of guesses
+        String numberOfGuesses = getIntent().getExtras().getString("number");
         System.out.println("ANTAL GÆT : "+numberOfGuesses);
         addNumberOfGuesses = findViewById(R.id.numberOfGuessesView);
-        addNumberOfGuesses.setText("Tillykke, du vandt spillet på "+numberOfGuesses+" forsøg!");
-
+        addNumberOfGuesses.setText("Tillykke, du vandt spillet på "+numberOfGuesses+". forsøg!");
         listenToButtons();
 
     }
 
 
     public void listenToButtons(){
+        System.out.println("virker det stadig?");
         // Capture button clicks
-        //TODO: Currently  this activity does not allow buttons. Returns a nullpointerexception??
         RestartGameButton = findViewById(R.id.playAgain);
         ReturnMainMenuButton = findViewById(R.id.goToMainMenu);
         HighScoreButton = findViewById(R.id.highScoreWin);
