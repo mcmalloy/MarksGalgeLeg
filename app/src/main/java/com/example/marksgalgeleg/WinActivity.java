@@ -7,11 +7,16 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
 public class WinActivity extends AppCompatActivity {
     Button RestartGameButton;
     Button ReturnMainMenuButton;
     Button HighScoreButton;
     TextView addNumberOfGuesses;
+    ArrayList<Integer> scores = new ArrayList<>();
+    String key;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -19,6 +24,9 @@ public class WinActivity extends AppCompatActivity {
 
         // Retrieving passed argument, in this case the number of guesses
         String numberOfGuesses = getIntent().getExtras().getString("number");
+        scores = getIntent().getExtras().getIntegerArrayList("scores");
+        key = getIntent().getExtras().getString("key");
+
         System.out.println("ANTAL GÆT : "+numberOfGuesses);
         addNumberOfGuesses = findViewById(R.id.numberOfGuessesView);
         addNumberOfGuesses.setText("Tillykke, du vandt spillet på "+numberOfGuesses+". forsøg!");
@@ -28,7 +36,6 @@ public class WinActivity extends AppCompatActivity {
 
 
     public void listenToButtons(){
-        System.out.println("virker det stadig?");
         // Capture button clicks
         RestartGameButton = findViewById(R.id.playAgain);
         ReturnMainMenuButton = findViewById(R.id.goToMainMenu);
@@ -72,6 +79,7 @@ public class WinActivity extends AppCompatActivity {
     public void GotoHighScore(){
         Intent myIntent = new Intent(this,
                 HighScoreListActivity.class);
+        myIntent.putIntegerArrayListExtra("scores",scores);
         startActivity(myIntent);
     }
 

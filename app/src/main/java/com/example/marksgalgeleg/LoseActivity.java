@@ -14,11 +14,15 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+
 public class LoseActivity extends AppCompatActivity {
     Button RestartGameButton;
     Button ReturnMainMenuButton;
     Button HighScoreButton;
     TextView addCorrectWord;
+    String key;
+    ArrayList<Integer> scores = new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,6 +30,8 @@ public class LoseActivity extends AppCompatActivity {
 
         // Retrieving passed argument, in this case the correct word
         String passedArg = getIntent().getExtras().getString("arg");
+        scores = getIntent().getExtras().getIntegerArrayList("scores");
+        key = getIntent().getExtras().getString("key");
         addCorrectWord = findViewById(R.id.ActualWordLoseScreen);
         addCorrectWord.setText("Det korrekte ord er: "+passedArg);
 
@@ -77,7 +83,9 @@ public class LoseActivity extends AppCompatActivity {
     }
 
     public void GotoHighScore(){
-        Intent myIntent = new Intent(this,HighScoreListActivity.class);
+        Intent myIntent = new Intent(this,
+                HighScoreListActivity.class);
+        myIntent.putIntegerArrayListExtra("highscores",scores);
         startActivity(myIntent);
     }
 }
