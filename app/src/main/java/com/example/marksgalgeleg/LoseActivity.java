@@ -1,40 +1,46 @@
 package com.example.marksgalgeleg;
+
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.Button;
-import android.widget.TextView;
+
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.snackbar.Snackbar;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
-public class WinActivity extends AppCompatActivity {
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
+
+public class LoseActivity extends AppCompatActivity {
     Button RestartGameButton;
     Button ReturnMainMenuButton;
     Button HighScoreButton;
-    TextView addNumberOfGuesses;
-
+    TextView addCorrectWord;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_winstate);
+        setContentView(R.layout.activity_lose);
 
-        int numberOfGuesses = getIntent().getExtras().getInt("arg");
-        System.out.println("ANTAL GÆT : "+numberOfGuesses);
-        addNumberOfGuesses = findViewById(R.id.numberOfGuessesView);
-        addNumberOfGuesses.setText("Tillykke, du vandt spillet på "+numberOfGuesses+" forsøg!");
+        // Retrieving passed argument, in this case the correct word
+        String passedArg = getIntent().getExtras().getString("arg");
+        addCorrectWord = findViewById(R.id.ActualWordLoseScreen);
+        addCorrectWord.setText("Det korrekte ord er: "+passedArg);
+
 
         listenToButtons();
 
-    }
 
+    }
 
     public void listenToButtons(){
         // Capture button clicks
         //TODO: Currently  this activity does not allow buttons. Returns a nullpointerexception??
-        RestartGameButton = findViewById(R.id.playAgain);
-        ReturnMainMenuButton = findViewById(R.id.goToMainMenu);
-        HighScoreButton = findViewById(R.id.highScoreWin);
-
+        RestartGameButton = findViewById(R.id.playAgain2);
+        ReturnMainMenuButton = findViewById(R.id.goToMainMenu2);
+        HighScoreButton = findViewById(R.id.highScoreLose);
 
         RestartGameButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View arg0) {
@@ -64,19 +70,14 @@ public class WinActivity extends AppCompatActivity {
     }
 
     public void GotoMenu(){
-    // Sends the user to main menu
+        // Sends the user to main menu
         Intent myIntent = new Intent(this,
                 MainActivity.class);
         startActivity(myIntent);
     }
 
     public void GotoHighScore(){
-        Intent myIntent = new Intent(this,
-                HighScoreListActivity.class);
+        Intent myIntent = new Intent(this,HighScoreListActivity.class);
         startActivity(myIntent);
-    }
-
-    public void startKonfetti(){
-        // Todo: Not an important method, using an open-source animation library here.
     }
 }

@@ -24,26 +24,30 @@ public class GameActivity extends AppCompatActivity {
             };
     final int[] currentImage = {0};
 
+    static String actualWord;
+    static int numberOfguesses = 0;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
         spil.nulstil();
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_second);
+
         final EditText bogstavGættet = (EditText) findViewById(R.id.gætInputField);
-        final TextView debugWord = (TextView) findViewById(R.id.ActualWord);
         final TextView synligtOrd = (TextView) findViewById(R.id.synligtord);
 
-            // debugWord.append("DEBUG, Ordet i denne runde er: "+ spil.getOrdet());
-            synligtOrd.setText(spil.getSynligtOrd());
+        // data relevant to send to win/lose activies
+        actualWord = spil.getSynligtOrd();
 
-            gætKnap = (Button) findViewById(R.id.GuessButton);
-            // Capture button clicks
-            gætKnap.setOnClickListener(new View.OnClickListener() { // Lytter til når brugeren trykker på gæt knap.
 
-                public void onClick(View arg0) {
-                    String bogstav = String.valueOf(bogstavGættet.getText());
+        synligtOrd.setText(spil.getSynligtOrd());
+
+        gætKnap = (Button) findViewById(R.id.GuessButton);
+        // Capture button clicks
+        gætKnap.setOnClickListener(new View.OnClickListener() { // Lytter til når brugeren trykker på gæt knap.
+
+                public void onClick(View arg0) { String bogstav = String.valueOf(bogstavGættet.getText());
                     spil.gætBogstav(bogstav);
                     spil.logStatus();
 
@@ -60,11 +64,14 @@ public class GameActivity extends AppCompatActivity {
     }
 
     public void makeGuess(String bogstav){
-
+        numberOfguesses++;
         // After every guess we check to see if the game has now concluded.
         if(spil.erSpilletSlut()){
             if(spil.erSpilletVundet()){
                 goToWinScreen(); // Sends the user to the winpage
+            }
+            else{
+                goToLoseScreen();
             }
             //TODO : Also create a losingState activity/fragment (will use fragments in next iteration)
         }
@@ -84,14 +91,24 @@ public class GameActivity extends AppCompatActivity {
     }
 
     public void addCorrectLetter(String letter){
+
         final TextView brugteBogstaverKorrekt = (TextView) findViewById(R.id.KorrekteBogstaver);
         brugteBogstaverKorrekt.append(" "+letter);
+
     }
 
     public void goToWinScreen(){
         // Sends the user to the winpage
-        Intent myIntent = new Intent(this,
-                WinActivity.class);
+        Intent myIntent = new Intent(this, WinActivity.class);
+        myIntent.putExtra("arg",numberOfguesses);
         startActivity(myIntent);
+    }
+
+    public void goToLoseScreen(){
+        Intent myIntent = new Intent(this,LoseActivity.class);
+        String ord = spil.getOrdet();
+        myIntent.putExtra("arg",ord);
+        startActivity(myIntent);
+
     }
 }
