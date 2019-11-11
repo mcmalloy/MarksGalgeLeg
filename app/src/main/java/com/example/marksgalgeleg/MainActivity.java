@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Switch;
 import android.widget.Toast;
 
 import com.example.marksgalgeleg.Galgelogik;
@@ -17,6 +18,8 @@ public class MainActivity extends AppCompatActivity {
     Button Startbutton;
     Button ContinueButton;
     Button HelpButton;
+    Switch DownloadSwitch;
+    static boolean b = false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -25,7 +28,7 @@ public class MainActivity extends AppCompatActivity {
         Startbutton = (Button) findViewById(R.id.StartGameButton);
         ContinueButton = (Button) findViewById(R.id.ContinueGameButton);
         HelpButton = (Button) findViewById(R.id.HelpButton);
-
+        DownloadSwitch = findViewById(R.id.switch1);
         listenToButtons();
 
     }
@@ -53,14 +56,23 @@ public class MainActivity extends AppCompatActivity {
                 help();
             }
         });
-
     }
 
     public void startGame(){
         // Starts the game activity. Let the games commence
         Intent myIntent = new Intent(this,
                 GameActivity.class);
-        startActivity(myIntent);
+
+        if(DownloadSwitch.isChecked()){
+            System.out.println("YOU SHOULD DOWNLOAD FROM DR");
+            myIntent.putExtra("gameMode",1);
+            startActivity(myIntent);
+        }
+        else if(DownloadSwitch.isChecked()==false){
+            System.out.println("START GAME NORMALLY");
+            myIntent.putExtra("gameMode",0);
+            startActivity(myIntent);
+        }
     }
 
     public void continueGame(){
@@ -70,5 +82,6 @@ public class MainActivity extends AppCompatActivity {
     public void help(){
         Toast.makeText(getApplicationContext(),"This hasn't been implemented yet",Toast.LENGTH_LONG);
     }
+
 
 }

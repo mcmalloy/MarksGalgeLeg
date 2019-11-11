@@ -33,10 +33,6 @@ public class HighScoreListActivity extends AppCompatActivity {
         listView=(ListView)findViewById(R.id.listView);
         textView=(TextView)findViewById(R.id.textView);
         scores = getIntent().getExtras().getIntegerArrayList("scores");
-        System.out.println("QQQQQQQQQQQQQQQQQ");
-        System.out.println("HERE IS THE FINAL ARRAYLIST READY FOR PRINTING!!!");
-        System.out.println(Arrays.toString(scores.toArray()));
-
 
         final ArrayAdapter<Integer> adapter = new ArrayAdapter<>(this,
                 android.R.layout.simple_list_item_1, android.R.id.text1, scores);

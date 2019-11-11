@@ -1,7 +1,9 @@
 package com.example.marksgalgeleg;
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -14,6 +16,7 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -37,15 +40,30 @@ public class GameActivity extends AppCompatActivity {
     final String key = "High scores";
     ArrayList<Integer> score = new ArrayList<>();
 
+    public void decideGameMode(){
+        int switchvalue = getIntent().getExtras().getInt("gameMode");
+
+        if(switchvalue==1){
+            new DownloadFilesTask().execute();
+        }
+
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        spil.nulstil();
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_second);
+        setContentView(R.layout.activity_game);
+        decideGameMode();
+        spil.nulstil();
         final EditText bogstavGættet = (EditText) findViewById(R.id.gætInputField);
         final TextView synligtOrd = (TextView) findViewById(R.id.synligtord);
 
 
+
+        System.out.println("ALLE ORD:");
+        for(int i=0; i<spil.muligeOrd.size() ;i++){
+            System.out.println(spil.muligeOrd.get(i));
+        }
 
         synligtOrd.setText(spil.getSynligtOrd());
 
@@ -62,7 +80,6 @@ public class GameActivity extends AppCompatActivity {
                     System.out.println(ord);
                     synligtOrd.setText("" + ord);
                     System.out.println("Spil status: "+spil.erSpilletSlut());
-
                     makeGuess(bogstav);
                 }
             });
@@ -78,7 +95,7 @@ public class GameActivity extends AppCompatActivity {
     }
 
     public void makeGuess(String bogstav){
-        numberOfguesses++;
+        ++numberOfguesses;
         // After every guess we check to see if the game has now concluded.
         if(spil.erSpilletSlut()){
             if(spil.erSpilletVundet()){
@@ -128,9 +145,11 @@ public class GameActivity extends AppCompatActivity {
         // Sends the user to the losepage
         System.out.println("ENTERING LOSING ACTIVITY");
         String ord = spil.getOrdet();
+
+
         Intent myIntent = new Intent(this,LoseActivity.class);
         myIntent.putExtra("arg",ord);
-        myIntent.putIntegerArrayListExtra("scores",score);
+        myIntent.putIntegerArrayListExtra("scores",getArrayList(key));
         myIntent.putExtra("key",key);
         startActivity(myIntent);
     }
@@ -180,4 +199,18 @@ public class GameActivity extends AppCompatActivity {
         SharedPreferences prefs = this.getSharedPreferences(key,Context.MODE_PRIVATE);
         prefs.edit().clear().commit();
     }
+
+    class DownloadFilesTask extends AsyncTask{
+
+        @Override
+        protected Object doInBackground(Object[] objects) {
+            try {
+                spil.hentOrdFraDr();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+    }
+
 }

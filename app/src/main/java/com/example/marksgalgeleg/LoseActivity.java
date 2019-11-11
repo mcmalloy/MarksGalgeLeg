@@ -83,9 +83,13 @@ public class LoseActivity extends AppCompatActivity {
     }
 
     public void GotoHighScore(){
+
+        System.out.println("Sending high score list:");
+        System.out.println(scores.toArray());
+
         Intent myIntent = new Intent(this,
                 HighScoreListActivity.class);
-        myIntent.putIntegerArrayListExtra("highscores",scores);
+        myIntent.putIntegerArrayListExtra("scores",scores);
         startActivity(myIntent);
     }
 }
