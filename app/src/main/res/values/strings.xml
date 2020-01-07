@@ -15,4 +15,5 @@
         <item>Android</item>
 
     </string-array>
+    <string name="title_activity_help">HelpActivity</string>
 </resources>

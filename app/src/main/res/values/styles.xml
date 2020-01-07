@@ -8,24 +8,18 @@
         <item name="colorAccent">@color/colorAccent</item>
 
 
-
-
     </style>
 
-    <style
-        name="PrimaryButtonColor" parent="Theme.AppCompat">
+    <style name="PrimaryButtonColor" parent="Theme.AppCompat">
         <item name="colorButtonNormal">@color/colorPrimary</item>
         <item name="colorControlHighlight">@color/colorAccent</item>
     </style>
 
 
-    <style
-        name="LoseButtonColors" parent="TextAppearance.AppCompat">
+    <style name="LoseButtonColors" parent="TextAppearance.AppCompat">
         <item name="colorButtonNormal">#8B0000</item>
         <item name="colorControlHighlight">@color/colorAccent</item>
     </style>
-
-
 
 
     <style name="AppTheme.NoActionBar">

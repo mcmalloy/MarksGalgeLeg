@@ -7,6 +7,30 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
+    <ImageView
+        android:id="@+id/multiplayericon"
+        android:layout_width="40dp"
+        android:layout_height="25dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.044"
+        app:layout_constraintStart_toEndOf="@+id/StartGameButton"
+        app:layout_constraintTop_toBottomOf="@+id/soloplayericon"
+        app:layout_constraintVertical_bias="0.144"
+        app:srcCompat="@drawable/usericon" />
+
+    <ImageView
+        android:id="@+id/multiplayericon2"
+        android:layout_width="40dp"
+        android:layout_height="25dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.761"
+        app:layout_constraintStart_toEndOf="@+id/StartGameButton"
+        app:layout_constraintTop_toBottomOf="@+id/soloplayericon"
+        app:layout_constraintVertical_bias="0.144"
+        app:srcCompat="@drawable/usericon" />
+
     <Button
         android:id="@+id/HelpButton"
         android:layout_width="204dp"
@@ -15,7 +39,13 @@
         android:layout_marginBottom="112dp"
         android:text="Help"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent" /><![CDATA[
+
+    />
+
+
+
+    ]]>
 
     <Button
         android:id="@+id/StartGameButton"
@@ -23,18 +53,18 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="100dp"
         android:layout_marginEnd="107dp"
-        android:layout_marginBottom="26dp"
-        android:text="Start Game"
+        android:layout_marginBottom="84dp"
+        android:text="Solo Game"
+        android:theme="@style/PrimaryButtonColor"
         app:layout_constraintBottom_toTopOf="@+id/ContinueGameButton"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        android:theme="@style/PrimaryButtonColor"/>
-    />
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/ContinueGameButton"
         android:layout_width="204dp"
-        android:layout_height="48dp"
+        android:layout_height="wrap_content"
         android:layout_marginEnd="104dp"
         android:layout_marginBottom="192dp"
         android:text="Continue Game"
@@ -74,5 +104,30 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <ImageView
+        android:id="@+id/soloplayericon"
+        android:layout_width="40dp"
+        android:layout_height="25dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.044"
+        app:layout_constraintStart_toEndOf="@+id/StartGameButton"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.524"
+        app:srcCompat="@drawable/usericon" />
+
+    <Button
+        android:id="@+id/StartMultiplayerButton"
+        android:layout_width="204dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="100dp"
+        android:text="Multiplayer"
+        app:layout_constraintBottom_toTopOf="@+id/ContinueGameButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.028"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/StartGameButton"
+        app:layout_constraintVertical_bias="0.583" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

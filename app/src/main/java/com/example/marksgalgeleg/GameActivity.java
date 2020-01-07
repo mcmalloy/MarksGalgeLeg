@@ -25,6 +25,7 @@ public class GameActivity extends AppCompatActivity {
     MediaPlayer player;
     Button gætKnap;
     Button DeleteDataButton;
+    String userword;
     final Galgelogik spil = new Galgelogik();
     final int[] images =
             {
@@ -47,6 +48,11 @@ public class GameActivity extends AppCompatActivity {
         //TODO: Implement a thread that starts to download the words
         if(switchvalue==1){
             new DownloadFilesTask().execute();
+        }
+        else if(switchvalue==2){
+            // We are in a multiplayer state
+            userword = getIntent().getExtras().getString("userWord");
+            //TODO : Find out how to use this word, even though i cant change the game logic :(
         }
 
     }

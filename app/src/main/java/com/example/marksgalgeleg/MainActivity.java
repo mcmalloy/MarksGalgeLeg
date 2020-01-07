@@ -16,6 +16,7 @@ import com.example.marksgalgeleg.Galgelogik;
 
 public class MainActivity extends AppCompatActivity {
     Button Startbutton;
+    Button Multiplayerbutton;
     Button ContinueButton;
     Button HelpButton;
     Switch DownloadSwitch;
@@ -26,6 +27,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         Startbutton = (Button) findViewById(R.id.StartGameButton);
+        Multiplayerbutton = findViewById(R.id.StartMultiplayerButton);
         ContinueButton = (Button) findViewById(R.id.ContinueGameButton);
         HelpButton = (Button) findViewById(R.id.HelpButton);
         DownloadSwitch = findViewById(R.id.switch1);
@@ -44,6 +46,11 @@ public class MainActivity extends AppCompatActivity {
         Startbutton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View arg0) {
                 startGame();
+            }
+        });
+        Multiplayerbutton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View arg0) {
+                multiplayer();
             }
         });
         ContinueButton.setOnClickListener(new View.OnClickListener() {
@@ -75,12 +82,18 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    public void multiplayer(){
+        Intent myIntent = new Intent(this,MultiplayerSetupActivity.class);
+        startActivity(myIntent);
+    }
+
     public void continueGame(){
         Toast.makeText(getApplicationContext(),"This hasn't been implemented yet",Toast.LENGTH_LONG);
     }
 
     public void help(){
-        Toast.makeText(getApplicationContext(),"This hasn't been implemented yet",Toast.LENGTH_LONG);
+        Intent myIntent = new Intent(this,HelpActivity.class);
+        startActivity(myIntent);
     }
 
 
