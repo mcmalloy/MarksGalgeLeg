@@ -1,6 +1,7 @@
 package com.example.marksgalgeleg;
 
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -23,6 +24,7 @@ public class LoseActivity extends AppCompatActivity {
     TextView addCorrectWord;
     String key;
     ArrayList<Integer> scores = new ArrayList<>();
+    MediaPlayer player;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -91,5 +93,12 @@ public class LoseActivity extends AppCompatActivity {
                 HighScoreListActivity.class);
         myIntent.putIntegerArrayListExtra("scores",scores);
         startActivity(myIntent);
+    }
+
+    public void playLosingMusic(){
+        if(player==null){ // To avoid it playing multiple times and using extra resources
+            player = MediaPlayer.create(this,R.raw.losing);
+        }
+        player.start();
     }
 }

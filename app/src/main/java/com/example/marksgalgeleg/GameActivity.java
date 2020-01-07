@@ -3,6 +3,7 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.media.MediaPlayer;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
@@ -21,6 +22,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 public class GameActivity extends AppCompatActivity {
+    MediaPlayer player;
     Button gætKnap;
     Button DeleteDataButton;
     final Galgelogik spil = new Galgelogik();
@@ -42,7 +44,7 @@ public class GameActivity extends AppCompatActivity {
 
     public void decideGameMode(){
         int switchvalue = getIntent().getExtras().getInt("gameMode");
-
+        //TODO: Implement a thread that starts to download the words
         if(switchvalue==1){
             new DownloadFilesTask().execute();
         }
@@ -106,12 +108,25 @@ public class GameActivity extends AppCompatActivity {
             }
         }
         else if(spil.erSidsteBogstavKorrekt()){
+            playSound(1);
             addCorrectLetter(bogstav);
         }
-        else if(spil.erSidsteBogstavKorrekt()==false){
+        else if(!spil.erSidsteBogstavKorrekt()){
+            playSound(0);
             ImageView image = (ImageView) findViewById(R.id.gameImage);
             image.setImageResource(images[++currentImage[0]]);
             addWrongLetter(bogstav);
+        }
+    }
+
+    public void playSound(int type){
+        if(type==1){
+            player = MediaPlayer.create(this,R.raw.correctword);
+            player.start();
+        }
+        else if(type==0){
+            player = MediaPlayer.create(this,R.raw.oof);
+            player.start();
         }
     }
 
@@ -131,13 +146,14 @@ public class GameActivity extends AppCompatActivity {
         // Sends the user to the winpage
         System.out.println("ENTERING WINNING ACTIVITY");
         String number = ""+numberOfguesses;
-
+        String ord = spil.getOrdet();
         sendDataToListView(key); // Transfer the list to the high score.
 
         Intent myIntent = new Intent(this,WinActivity.class);
         myIntent.putExtra("number",number);
         myIntent.putIntegerArrayListExtra("scores",score);
         myIntent.putExtra("key",key);
+        myIntent.putExtra("ord",ord);
         startActivity(myIntent);
     }
 
@@ -148,7 +164,7 @@ public class GameActivity extends AppCompatActivity {
 
 
         Intent myIntent = new Intent(this,LoseActivity.class);
-        myIntent.putExtra("arg",ord);
+        myIntent.putExtra("arg",ord); // Sends correct word to lose activity
         myIntent.putIntegerArrayListExtra("scores",getArrayList(key));
         myIntent.putExtra("key",key);
         startActivity(myIntent);

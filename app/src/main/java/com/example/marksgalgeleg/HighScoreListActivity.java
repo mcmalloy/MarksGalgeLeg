@@ -33,7 +33,7 @@ public class HighScoreListActivity extends AppCompatActivity {
         listView=(ListView)findViewById(R.id.listView);
         textView=(TextView)findViewById(R.id.textView);
         scores = getIntent().getExtras().getIntegerArrayList("scores");
-
+        String ord = getIntent().getStringExtra("ord");
         final ArrayAdapter<Integer> adapter = new ArrayAdapter<>(this,
                 android.R.layout.simple_list_item_1, android.R.id.text1, scores);
         listView.setAdapter(adapter);
