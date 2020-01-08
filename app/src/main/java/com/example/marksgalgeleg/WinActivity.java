@@ -1,13 +1,20 @@
 package com.example.marksgalgeleg;
 import android.content.Intent;
 import android.content.res.AssetManager;
+import android.graphics.Bitmap;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.airbnb.lottie.ImageAssetDelegate;
+import com.airbnb.lottie.LottieAnimationView;
+import com.airbnb.lottie.LottieImageAsset;
 
 import java.io.FileInputStream;
 import java.util.ArrayList;
@@ -22,12 +29,14 @@ public class WinActivity extends AppCompatActivity {
     String ord;
     ArrayList<Integer> scores = new ArrayList<>();
     String key;
+    TextView pointshow;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_winstate);
         playWinningMusic();
+        startAnimation();
         // Retrieving passed argument, in this case the number of guesses
         String numberOfGuesses = getIntent().getExtras().getString("number");
         scores = getIntent().getExtras().getIntegerArrayList("scores");
@@ -95,5 +104,11 @@ public class WinActivity extends AppCompatActivity {
             player = MediaPlayer.create(this,R.raw.winning);
         }
         player.start();
+    }
+
+    private void startAnimation(){
+        LottieAnimationView animation;
+        animation = (LottieAnimationView)findViewById(R.id.confetti);
+
     }
 }

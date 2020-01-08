@@ -12,15 +12,12 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
-
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-
 import java.lang.reflect.Type;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
-
+import java.util.Date;
 public class GameActivity extends AppCompatActivity {
     MediaPlayer player;
     Button gætKnap;
@@ -39,12 +36,14 @@ public class GameActivity extends AppCompatActivity {
             };
     final int[] currentImage = {0};
     static int numberOfguesses = 0;
-
-    final String key = "High scores";
+    int switchvalue;
+    final String key = "High scores"; // The key identifier that ables the program to score high scores
+    final String time_key = "time"; // Store date of a completed game
     ArrayList<Integer> score = new ArrayList<>();
+    ArrayList<Date> dateList = new ArrayList<>();
 
     public void decideGameMode(){
-        int switchvalue = getIntent().getExtras().getInt("gameMode");
+        switchvalue = getIntent().getExtras().getInt("gameMode");
         //TODO: Implement a thread that starts to download the words
         if(switchvalue==1){
             new DownloadFilesTask().execute();
@@ -56,13 +55,20 @@ public class GameActivity extends AppCompatActivity {
         }
 
     }
-
+    public void checkforMultiplayer(){
+        if(switchvalue==2){
+            spil.setOrd(userword);
+            spil.getSynligtOrd();
+        }
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
         decideGameMode();
         spil.nulstil();
+        checkforMultiplayer();
+
         final EditText bogstavGættet = (EditText) findViewById(R.id.gætInputField);
         final TextView synligtOrd = (TextView) findViewById(R.id.synligtord);
 
@@ -75,7 +81,7 @@ public class GameActivity extends AppCompatActivity {
 
         synligtOrd.setText(spil.getSynligtOrd());
 
-        gætKnap = (Button) findViewById(R.id.GuessButton);
+        gætKnap = findViewById(R.id.GuessButton);
         // Capture button clicks
         gætKnap.setOnClickListener(new View.OnClickListener() { // Lytter til når brugeren trykker på gæt knap.
 
@@ -153,7 +159,7 @@ public class GameActivity extends AppCompatActivity {
         System.out.println("ENTERING WINNING ACTIVITY");
         String number = ""+numberOfguesses;
         String ord = spil.getOrdet();
-        sendDataToListView(key); // Transfer the list to the high score.
+        sendDataToListView(score,key); // Transfer the list to the high score.
 
         Intent myIntent = new Intent(this,WinActivity.class);
         myIntent.putExtra("number",number);
@@ -176,7 +182,20 @@ public class GameActivity extends AppCompatActivity {
         startActivity(myIntent);
     }
 
-    public void sendDataToListView(String key){
+
+    class DownloadFilesTask extends AsyncTask{
+
+        @Override
+        protected Object doInBackground(Object[] objects) {
+            try {
+                spil.hentOrdFraDr();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+    }
+    public void sendDataToListView(ArrayList<Integer> score, String key){
         if(getArrayList(key)!=null){
             score = getArrayList(key); // First get the array list, if empty it doesnt matter
             score.add(100-numberOfguesses); // Arbitrary score for list.
@@ -221,18 +240,4 @@ public class GameActivity extends AppCompatActivity {
         SharedPreferences prefs = this.getSharedPreferences(key,Context.MODE_PRIVATE);
         prefs.edit().clear().commit();
     }
-
-    class DownloadFilesTask extends AsyncTask{
-
-        @Override
-        protected Object doInBackground(Object[] objects) {
-            try {
-                spil.hentOrdFraDr();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            return null;
-        }
-    }
-
 }

@@ -76,6 +76,9 @@ public class Galgelogik {
     opdaterSynligtOrd();
   }
 
+  public void setOrd(String ord){
+    ordet = ord;
+  }
 
   private void opdaterSynligtOrd() {
     synligtOrd = "";
