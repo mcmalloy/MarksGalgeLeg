@@ -23,7 +23,7 @@ import java.util.Arrays;
 public class HighScoreListActivity extends AppCompatActivity {
     ListView listView;
     TextView textView;
-    ArrayList<Integer> scores = new ArrayList<>();
+    ArrayList<Data> scores = new ArrayList<>();
 
 
     @Override
@@ -32,10 +32,17 @@ public class HighScoreListActivity extends AppCompatActivity {
         setContentView(R.layout.activity_high_score_list);
         listView=(ListView)findViewById(R.id.listView);
         textView=(TextView)findViewById(R.id.textView);
-        scores = getIntent().getExtras().getIntegerArrayList("scores");
-        String ord = getIntent().getStringExtra("ord");
-        final ArrayAdapter<Integer> adapter = new ArrayAdapter<>(this,
-                android.R.layout.simple_list_item_1, android.R.id.text1, scores);
+        scores = (ArrayList<Data>) getIntent().getExtras().get("scores");
+        final ArrayAdapter<Data> adapter = new ArrayAdapter<>(this,
+                android.R.layout.simple_list_item_1, android.R.id.text1,scores);
+        listView.setAdapter(adapter);
+    }
+
+    private void populateUserList(){
+        ArrayList<Data> arrayOfData = Data.getData();
+        CustomDataAdapter adapter = new CustomDataAdapter(this, arrayOfData);
+        // Attach the adapter to a ListView
+        ListView listView = (ListView) findViewById(R.id.listView);
         listView.setAdapter(adapter);
     }
 }

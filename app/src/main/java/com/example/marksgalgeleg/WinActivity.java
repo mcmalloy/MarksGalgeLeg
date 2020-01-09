@@ -108,7 +108,7 @@ public class WinActivity extends AppCompatActivity {
 
     private void startAnimation(){
         LottieAnimationView animation;
-        animation = (LottieAnimationView)findViewById(R.id.confetti);
+        animation = (LottieAnimationView)findViewById(R.id.confetti); // is automatically used upon method call
 
     }
 }

@@ -38,9 +38,7 @@ public class GameActivity extends AppCompatActivity {
     static int numberOfguesses = 0;
     int switchvalue;
     final String key = "High scores"; // The key identifier that ables the program to score high scores
-    final String time_key = "time"; // Store date of a completed game
-    ArrayList<Integer> score = new ArrayList<>();
-    ArrayList<Date> dateList = new ArrayList<>();
+    ArrayList<Data> score = new ArrayList<>();
 
     public void decideGameMode(){
         switchvalue = getIntent().getExtras().getInt("gameMode");
@@ -163,7 +161,7 @@ public class GameActivity extends AppCompatActivity {
 
         Intent myIntent = new Intent(this,WinActivity.class);
         myIntent.putExtra("number",number);
-        myIntent.putIntegerArrayListExtra("scores",score);
+        myIntent.putExtra("scores",score);
         myIntent.putExtra("key",key);
         myIntent.putExtra("ord",ord);
         startActivity(myIntent);
@@ -177,7 +175,7 @@ public class GameActivity extends AppCompatActivity {
 
         Intent myIntent = new Intent(this,LoseActivity.class);
         myIntent.putExtra("arg",ord); // Sends correct word to lose activity
-        myIntent.putIntegerArrayListExtra("scores",getArrayList(key));
+        myIntent.putExtra("scores",getArrayList(key));
         myIntent.putExtra("key",key);
         startActivity(myIntent);
     }
@@ -195,21 +193,22 @@ public class GameActivity extends AppCompatActivity {
             return null;
         }
     }
-    public void sendDataToListView(ArrayList<Integer> score, String key){
+    public void sendDataToListView(ArrayList<Data> score, String key){
+        String ord = spil.getOrdet();
         if(getArrayList(key)!=null){
             score = getArrayList(key); // First get the array list, if empty it doesnt matter
-            score.add(100-numberOfguesses); // Arbitrary score for list.
+            score.add(new Data(100-numberOfguesses,ord)); // Arbitrary score for list.
             saveArrayList(score,key); // Then store the array list with new value
             System.out.println("DATA BEING STORED!!");
         }
         else{
-            score.add(100-numberOfguesses);
+            score.add(new Data(100-numberOfguesses,ord));
             saveArrayList(score,key);
             System.out.println("DATA BEING STORED!!");
         }
     }
 
-    public void saveArrayList(ArrayList<Integer> list, String key){
+    public void saveArrayList(ArrayList<Data> list, String key){
         SharedPreferences prefs;
 
         System.out.println("Saving arraylist! Showing old arraylist: ");
@@ -221,13 +220,9 @@ public class GameActivity extends AppCompatActivity {
         String json = gson.toJson(list);
         editor.putString(key, json);
         editor.apply();     // This line is IMPORTANT !!!
-
-        System.out.println();
-        System.out.println("New array retrieved from storage: ");
-        System.out.println(Arrays.toString(getArrayList(key).toArray()));
     }
 
-    public ArrayList<Integer> getArrayList(String key){
+    public ArrayList<Data> getArrayList(String key){
         SharedPreferences prefs = this.getSharedPreferences(key,Context.MODE_PRIVATE);
         Gson gson = new Gson();
         String json = prefs.getString(key, null);
