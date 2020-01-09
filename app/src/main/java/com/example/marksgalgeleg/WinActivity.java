@@ -24,7 +24,7 @@ public class WinActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_winstate);
         playWinningMusic();
-        // startAnimation();
+        startAnimation();
         // Retrieving passed argument, in this case the number of guesses
         String numberOfGuesses = getIntent().getExtras().getString("number");
         scores = getIntent().getExtras().getIntegerArrayList("scores");
@@ -83,7 +83,6 @@ public class WinActivity extends AppCompatActivity {
         Intent myIntent = new Intent(this,
                 HighScoreListActivity.class);
         myIntent.putIntegerArrayListExtra("scores",scores);
-        myIntent.putExtra("ord",ord);
         startActivity(myIntent);
     }
 
@@ -96,7 +95,7 @@ public class WinActivity extends AppCompatActivity {
 
     private void startAnimation(){
         LottieAnimationView animation;
-        // animation = (LottieAnimationView)findViewById(R.id.confetti);
+        animation = (LottieAnimationView)findViewById(R.id.confetti);
 
     }
 }

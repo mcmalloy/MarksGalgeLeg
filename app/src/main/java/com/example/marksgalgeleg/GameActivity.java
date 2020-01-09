@@ -207,6 +207,7 @@ public class GameActivity extends AppCompatActivity {
         myIntent.putExtra("arg",ord); // Sends correct word to lose activity
         // myIntent.putIntegerArrayListExtra("scores",getArrayList(key));
         myIntent.putExtra("key",key);
+        myIntent.putIntegerArrayListExtra("scores",loadData());
         startActivity(myIntent);
     }
 
