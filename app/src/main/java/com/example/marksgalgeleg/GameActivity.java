@@ -12,8 +12,10 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
+
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -37,11 +39,7 @@ public class GameActivity extends AppCompatActivity {
     final int[] currentImage = {0};
     static int numberOfguesses = 0;
     int switchvalue;
-    final String key = "High scores"; // The key identifier that ables the program to score high scores
-    final String time_key = "time"; // Store date of a completed game
-    ArrayList<Integer> score = new ArrayList<>();
-    ArrayList<Date> dateList = new ArrayList<>();
-
+    final String key = "key123"; // The key identifier that ables the program to score high scores
     public void decideGameMode(){
         switchvalue = getIntent().getExtras().getInt("gameMode");
         //TODO: Implement a thread that starts to download the words
@@ -51,7 +49,6 @@ public class GameActivity extends AppCompatActivity {
         else if(switchvalue==2){
             // We are in a multiplayer state
             userword = getIntent().getExtras().getString("userWord");
-            //TODO : Find out how to use this word, even though i cant change the game logic :(
         }
 
     }
@@ -85,24 +82,24 @@ public class GameActivity extends AppCompatActivity {
         // Capture button clicks
         gætKnap.setOnClickListener(new View.OnClickListener() { // Lytter til når brugeren trykker på gæt knap.
 
-                public void onClick(View arg0) { String bogstav = String.valueOf(bogstavGættet.getText());
-                    spil.gætBogstav(bogstav);
-                    spil.logStatus();
+            public void onClick(View arg0) { String bogstav = String.valueOf(bogstavGættet.getText());
+                spil.gætBogstav(bogstav);
+                spil.logStatus();
 
-                    bogstavGættet.setText(""); // Resetter tekstfeltet så snart brugeren har lavet et gæt
-                    String ord = spil.getSynligtOrd();
-                    System.out.println(ord);
-                    synligtOrd.setText("" + ord);
-                    System.out.println("Spil status: "+spil.erSpilletSlut());
-                    makeGuess(bogstav);
-                }
-            });
+                bogstavGættet.setText(""); // Resetter tekstfeltet så snart brugeren har lavet et gæt
+                String ord = spil.getSynligtOrd();
+                System.out.println(ord);
+                synligtOrd.setText("" + ord);
+                System.out.println("Spil status: "+spil.erSpilletSlut());
+                makeGuess(bogstav);
+            }
+        });
 
         DeleteDataButton = findViewById(R.id.deleteButton);
         DeleteDataButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                eraseArrayList(key);
+                clearData();
             }
         });
 
@@ -156,28 +153,59 @@ public class GameActivity extends AppCompatActivity {
 
     public void goToWinScreen(){
         // Sends the user to the winpage
+        saveData();
         System.out.println("ENTERING WINNING ACTIVITY");
         String number = ""+numberOfguesses;
         String ord = spil.getOrdet();
-        sendDataToListView(score,key); // Transfer the list to the high score.
-
         Intent myIntent = new Intent(this,WinActivity.class);
         myIntent.putExtra("number",number);
-        myIntent.putIntegerArrayListExtra("scores",score);
+        myIntent.putIntegerArrayListExtra("scores",loadData());
         myIntent.putExtra("key",key);
         myIntent.putExtra("ord",ord);
+        loadData();
+
+
+
         startActivity(myIntent);
+    }
+
+    private void saveData(){
+        ArrayList<Integer> score = loadData();
+        score.add(100-numberOfguesses);
+        SharedPreferences sharedPreferences = getSharedPreferences(key, MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        Gson gson = new Gson();
+        String json = gson.toJson(score);
+        editor.putString("task list", json);
+        editor.apply();
+        System.out.println("The arraylist has been saved");
+    }
+    private ArrayList<Integer> loadData() {
+            ArrayList<Integer> score;
+            SharedPreferences sharedPreferences = getSharedPreferences(key, MODE_PRIVATE);
+            Gson gson = new Gson();
+            String json = sharedPreferences.getString("task list", null);
+            Type type = new TypeToken<ArrayList<Integer>>() {}.getType();
+            score = gson.fromJson(json, type);
+            if(score==null){
+                score = new ArrayList<>();
+            }
+            System.out.println("The list has been loaded successfully:");
+            System.out.println(score);
+            return score;
+    }
+    private void clearData(){
+        SharedPreferences sharedPreferences = getSharedPreferences(key, MODE_PRIVATE);
+        sharedPreferences.edit().clear().commit();
     }
 
     public void goToLoseScreen(){
         // Sends the user to the losepage
         System.out.println("ENTERING LOSING ACTIVITY");
         String ord = spil.getOrdet();
-
-
         Intent myIntent = new Intent(this,LoseActivity.class);
         myIntent.putExtra("arg",ord); // Sends correct word to lose activity
-        myIntent.putIntegerArrayListExtra("scores",getArrayList(key));
+        // myIntent.putIntegerArrayListExtra("scores",getArrayList(key));
         myIntent.putExtra("key",key);
         startActivity(myIntent);
     }
@@ -194,50 +222,5 @@ public class GameActivity extends AppCompatActivity {
             }
             return null;
         }
-    }
-    public void sendDataToListView(ArrayList<Integer> score, String key){
-        if(getArrayList(key)!=null){
-            score = getArrayList(key); // First get the array list, if empty it doesnt matter
-            score.add(100-numberOfguesses); // Arbitrary score for list.
-            saveArrayList(score,key); // Then store the array list with new value
-            System.out.println("DATA BEING STORED!!");
-        }
-        else{
-            score.add(100-numberOfguesses);
-            saveArrayList(score,key);
-            System.out.println("DATA BEING STORED!!");
-        }
-    }
-
-    public void saveArrayList(ArrayList<Integer> list, String key){
-        SharedPreferences prefs;
-
-        System.out.println("Saving arraylist! Showing old arraylist: ");
-        System.out.println(Arrays.toString(list.toArray()));
-
-        prefs = this.getSharedPreferences(key, Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = prefs.edit();
-        Gson gson = new Gson();
-        String json = gson.toJson(list);
-        editor.putString(key, json);
-        editor.apply();     // This line is IMPORTANT !!!
-
-        System.out.println();
-        System.out.println("New array retrieved from storage: ");
-        System.out.println(Arrays.toString(getArrayList(key).toArray()));
-    }
-
-    public ArrayList<Integer> getArrayList(String key){
-        SharedPreferences prefs = this.getSharedPreferences(key,Context.MODE_PRIVATE);
-        Gson gson = new Gson();
-        String json = prefs.getString(key, null);
-        Type type = new TypeToken<ArrayList<String>>() {}.getType();
-        return gson.fromJson(json, type);
-    }
-
-    public void eraseArrayList(String key){
-        getArrayList(key);
-        SharedPreferences prefs = this.getSharedPreferences(key,Context.MODE_PRIVATE);
-        prefs.edit().clear().commit();
     }
 }

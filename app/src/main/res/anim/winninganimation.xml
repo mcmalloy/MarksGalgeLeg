@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<set xmlns:android="http://schemas.android.com/apk/res/android">
+<set xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <rotate>
+    <rotate tools:ignore="ExtraText">
         android:pivotX="50%"
         android:pivotY="50%"
         android:fromDegrees="0"
